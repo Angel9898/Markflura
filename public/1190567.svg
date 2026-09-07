@@ -1,0 +1,222 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <!-- Background studio soft lighting -->
+    <radialGradient id="studioWall" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#ebe6de" />
+      <stop offset="50%" stop-color="#dfd9d0" />
+      <stop offset="85%" stop-color="#cfc8be" />
+      <stop offset="100%" stop-color="#bebaa3" />
+    </radialGradient>
+
+    <!-- Warm Indian skin gradient -->
+    <linearGradient id="skinTone" x1="45%" y1="20%" x2="55%" y2="80%">
+      <stop offset="0%" stop-color="#dfa98a" />
+      <stop offset="50%" stop-color="#d19574" />
+      <stop offset="100%" stop-color="#be7f5f" />
+    </linearGradient>
+
+    <radialGradient id="cheekGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c96f64" stop-opacity="0.32" />
+      <stop offset="100%" stop-color="#c96f64" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Deep brunette hair tones -->
+    <linearGradient id="hairBase" x1="30%" y1="0%" x2="70%" y2="100%">
+      <stop offset="0%" stop-color="#342823" />
+      <stop offset="40%" stop-color="#231a16" />
+      <stop offset="80%" stop-color="#18120f" />
+      <stop offset="100%" stop-color="#0f0b09" />
+    </linearGradient>
+
+    <linearGradient id="hairHighlight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#554138" stop-opacity="0.7" />
+      <stop offset="50%" stop-color="#3d2c24" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#1f1612" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Tailored cream ivory blazer gradient -->
+    <linearGradient id="creamBlazer" x1="20%" y1="10%" x2="80%" y2="90%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="40%" stop-color="#f8f6f1" />
+      <stop offset="80%" stop-color="#ebe6dd" />
+      <stop offset="100%" stop-color="#dfd9cd" />
+    </linearGradient>
+
+    <!-- Ribbed inner top pattern -->
+    <pattern id="ribPattern" width="4" height="20" patternUnits="userSpaceOnUse">
+      <rect width="2" height="20" fill="#fcfbfa" />
+      <rect x="2" width="2" height="20" fill="#ede8e0" />
+    </pattern>
+
+    <!-- Lip sheen -->
+    <linearGradient id="lipGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#bf6e75" />
+      <stop offset="60%" stop-color="#b15961" />
+      <stop offset="100%" stop-color="#9a434b" />
+    </linearGradient>
+
+    <!-- Soft drop shadow -->
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Circular Studio Backdrop Frame -->
+  <rect width="500" height="500" fill="#000000" />
+  <circle cx="250" cy="250" r="236" fill="url(#studioWall)" />
+
+  <!-- Back Hair Silhouette -->
+  <path d="M 160 170 
+           C 140 100, 200 40, 250 40 
+           C 310 40, 360 100, 350 180 
+           C 365 240, 375 320, 370 380 
+           L 130 380 
+           C 125 320, 135 240, 160 170 Z" 
+        fill="url(#hairBase)" />
+
+  <!-- Neck & Collarbones -->
+  <path d="M 215 250 L 210 320 L 290 320 L 285 250 Z" fill="#c48564" />
+  <path d="M 215 265 C 235 285, 265 285, 285 265 L 285 280 C 265 300, 235 300, 215 280 Z" fill="#b47352" opacity="0.4" />
+
+  <!-- Inner Ribbed Top -->
+  <path d="M 208 300 
+           C 225 325, 275 325, 292 300 
+           L 305 450 L 195 450 Z" 
+        fill="url(#ribPattern)" />
+
+  <!-- Ivory Tailored Blazer Body & Shoulders -->
+  <!-- Left Shoulder & Lapel -->
+  <g filter="url(#softShadow)">
+    <path d="M 80 470 
+             C 95 380, 140 320, 195 300 
+             L 245 420 
+             L 190 470 Z" 
+          fill="url(#creamBlazer)" />
+    <!-- Lapel Fold Left -->
+    <path d="M 195 300 L 225 375 L 200 378 L 245 470 L 175 470 Z" fill="#fdfcf9" />
+    <path d="M 195 300 L 225 375 L 188 340 Z" fill="#e2dcd1" opacity="0.6" />
+
+    <!-- Right Shoulder & Lapel (Viewer's Right) -->
+    <path d="M 420 470 
+             C 405 380, 360 320, 305 300 
+             L 255 420 
+             L 310 470 Z" 
+          fill="url(#creamBlazer)" />
+    <!-- Lapel Fold Right -->
+    <path d="M 305 300 L 275 375 L 300 378 L 255 470 L 325 470 Z" fill="#ffffff" />
+    <path d="M 305 300 L 275 375 L 312 340 Z" fill="#e2dcd1" opacity="0.6" />
+  </g>
+
+  <!-- Head & Face Structure -->
+  <g id="faceGroup">
+    <!-- Face Contour (Soft Oval / Heart) -->
+    <path d="M 180 170 
+             C 180 120, 210 90, 250 90 
+             C 290 90, 320 120, 320 170 
+             C 320 220, 290 270, 250 270 
+             C 210 270, 180 220, 180 170 Z" 
+          fill="url(#skinTone)" />
+
+    <!-- Cheeks warmth -->
+    <circle cx="210" cy="195" r="24" fill="url(#cheekGlow)" />
+    <circle cx="290" cy="195" r="24" fill="url(#cheekGlow)" />
+
+    <!-- Soft Chin shadow -->
+    <path d="M 235 258 C 245 264, 255 264, 265 258 C 255 268, 245 268, 235 258 Z" fill="#9e6244" opacity="0.35" />
+
+    <!-- Left Earring (Small delicate gold hoop) -->
+    <circle cx="178" cy="195" r="5" fill="none" stroke="#eab308" stroke-width="1.8" />
+    <circle cx="178" cy="195" r="2" fill="#fef08a" opacity="0.7" />
+
+    <!-- Eyebrows (Well-defined arched dark brunette) -->
+    <!-- Right Eye Brow (Viewer's Left) -->
+    <path d="M 200 152 Q 220 144 235 152" fill="none" stroke="#231a16" stroke-width="4.5" stroke-linecap="round" />
+    <!-- Left Eye Brow (Viewer's Right) -->
+    <path d="M 265 152 Q 280 144 300 152" fill="none" stroke="#231a16" stroke-width="4.5" stroke-linecap="round" />
+
+    <!-- Eyes (Large, expressive almond dark eyes with soft liner & lash highlight) -->
+    <!-- Eye Left (Viewer's Left) -->
+    <g id="leftEye">
+      <path d="M 204 168 Q 218 160 234 168 Q 218 176 204 168 Z" fill="#ffffff" />
+      <!-- Iris -->
+      <circle cx="219" cy="168" r="5.5" fill="#2d1d17" />
+      <circle cx="219" cy="168" r="3.2" fill="#120c09" />
+      <!-- Catchlight reflection -->
+      <circle cx="217.5" cy="166" r="1.6" fill="#ffffff" />
+      <!-- Eyeliner & upper lash -->
+      <path d="M 202 168 Q 218 158 236 167" fill="none" stroke="#18110e" stroke-width="2.2" stroke-linecap="round" />
+    </g>
+
+    <!-- Eye Right (Viewer's Right) -->
+    <g id="rightEye">
+      <path d="M 266 168 Q 282 160 296 168 Q 282 176 266 168 Z" fill="#ffffff" />
+      <!-- Iris -->
+      <circle cx="281" cy="168" r="5.5" fill="#2d1d17" />
+      <circle cx="281" cy="168" r="3.2" fill="#120c09" />
+      <!-- Catchlight reflection -->
+      <circle cx="279.5" cy="166" r="1.6" fill="#ffffff" />
+      <!-- Eyeliner & upper lash -->
+      <path d="M 264 167 Q 282 158 298 168" fill="none" stroke="#18110e" stroke-width="2.2" stroke-linecap="round" />
+    </g>
+
+    <!-- Nose (Delicate bridge & soft wings) -->
+    <path d="M 250 162 L 248 198 Q 248 206 250 207 L 252 207" fill="none" stroke="#be7f5f" stroke-width="1.8" stroke-linecap="round" opacity="0.6" />
+    <circle cx="243" cy="206" r="2.2" fill="#a46547" opacity="0.4" />
+    <circle cx="257" cy="206" r="2.2" fill="#a46547" opacity="0.4" />
+    <ellipse cx="250" cy="205" rx="3.5" ry="2" fill="#f0c2a8" opacity="0.6" />
+
+    <!-- Gentle Friendly Smile (Soft rose tone with center highlight) -->
+    <g id="mouth">
+      <!-- Upper Lip -->
+      <path d="M 233 226 Q 250 223 267 226 Q 250 229 233 226 Z" fill="url(#lipGradient)" />
+      <!-- Lower Lip -->
+      <path d="M 233 226 Q 250 241 267 226 Q 250 234 233 226 Z" fill="url(#lipGradient)" />
+      <!-- Lip center shadow seam -->
+      <path d="M 233 226 Q 250 228 267 226" fill="none" stroke="#792830" stroke-width="1" />
+      <!-- Lip gloss highlight -->
+      <ellipse cx="250" cy="232" rx="5" ry="1.5" fill="#f49ea5" opacity="0.5" />
+    </g>
+  </g>
+
+  <!-- Front Hair Styling & Cascading Waves (Matching user photo) -->
+  <g id="hairFront">
+    <!-- Top volume & right-side part -->
+    <path d="M 160 170 
+             C 150 110, 190 60, 245 62 
+             C 285 64, 340 100, 335 170 
+             C 310 120, 260 105, 230 115 
+             C 195 125, 175 145, 160 170 Z" 
+          fill="url(#hairBase)" />
+
+    <!-- Left fringe framing cheek -->
+    <path d="M 175 140 
+             C 160 180, 165 240, 185 280 
+             C 175 240, 170 190, 175 140 Z" 
+          fill="url(#hairBase)" />
+
+    <!-- Main Right Cascading Lock Falling Over Chest (Prominent signature in photo) -->
+    <path d="M 285 95 
+             C 320 120, 335 170, 330 230 
+             C 325 270, 320 310, 310 340 
+             C 300 370, 275 410, 255 450 
+             C 240 480, 235 495, 230 500 
+             L 215 500 
+             C 220 480, 225 450, 240 420 
+             C 260 380, 280 340, 288 300 
+             C 295 260, 295 210, 280 160 
+             C 275 140, 275 110, 285 95 Z" 
+          fill="url(#hairBase)" 
+          filter="url(#softShadow)" />
+
+    <!-- Soft hair strand highlights -->
+    <path d="M 288 120 Q 320 160 315 220 Q 310 270 295 320 Q 280 370 255 420" 
+          fill="none" stroke="url(#hairHighlight)" stroke-width="5" stroke-linecap="round" />
+    <path d="M 210 85 Q 240 75 270 90" 
+          fill="none" stroke="url(#hairHighlight)" stroke-width="3" stroke-linecap="round" />
+    <path d="M 175 150 Q 168 190 175 230" 
+          fill="none" stroke="url(#hairHighlight)" stroke-width="2.5" opacity="0.6" stroke-linecap="round" />
+  </g>
+
+  <!-- Outer Ring Bevel for High-End Aesthetic Integration -->
+  <circle cx="250" cy="250" r="236" fill="none" stroke="#d4af37" stroke-width="2.5" stroke-opacity="0.4" />
+</svg>

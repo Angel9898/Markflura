@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <!-- Background Radial Glow -->
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ca8a04" stop-opacity="0.18" />
+      <stop offset="60%" stop-color="#ca8a04" stop-opacity="0.04" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Rich Metallic Gold Gradient -->
+    <linearGradient id="goldStem" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="25%" stop-color="#eab308" />
+      <stop offset="60%" stop-color="#ca8a04" />
+      <stop offset="90%" stop-color="#854d0e" />
+      <stop offset="100%" stop-color="#a16207" />
+    </linearGradient>
+
+    <!-- Dynamic Curved Blade Gradient with highlight -->
+    <linearGradient id="goldSwoosh" x1="15%" y1="90%" x2="90%" y2="10%">
+      <stop offset="0%" stop-color="#b45309" />
+      <stop offset="25%" stop-color="#d97706" />
+      <stop offset="50%" stop-color="#facc15" />
+      <stop offset="85%" stop-color="#fef9c3" />
+      <stop offset="100%" stop-color="#ffffff" />
+    </linearGradient>
+
+    <!-- Bevel shadow -->
+    <linearGradient id="bevelShadow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.45" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </linearGradient>
+
+    <filter id="goldDropShadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.9" />
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#d4af37" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Canvas Background Glow -->
+  <rect width="500" height="500" rx="40" fill="#09090b" />
+  <circle cx="250" cy="250" r="220" fill="url(#bgGlow)" />
+
+  <g filter="url(#goldDropShadow)">
+    <!-- Left Vertical Stem & Inner Notch -->
+    <path d="M 135 140 
+             L 178 140 
+             L 240 236 
+             L 178 262 
+             L 178 340 
+             L 135 340 
+             Z" 
+          fill="url(#goldStem)" />
+
+    <!-- Right Vertical Stem Base -->
+    <path d="M 318 180 
+             L 365 180 
+             L 365 340 
+             L 318 340 
+             Z" 
+          fill="url(#goldStem)" />
+
+    <!-- Dynamic Ascending Golden Swoosh / Blade Curve -->
+    <path d="M 194 340 
+             C 194 340, 206 280, 252 222
+             C 288 176, 335 152, 368 132
+             C 362 152, 342 195, 312 238
+             C 275 292, 230 330, 204 340
+             Z" 
+          fill="url(#goldSwoosh)" />
+
+    <!-- Left inner diagonal facet -->
+    <path d="M 178 140 
+             L 240 236 
+             L 216 246 
+             L 178 188 
+             Z" 
+          fill="url(#bevelShadow)" />
+
+    <!-- Specular Flare / Sheen on Apex Tip -->
+    <circle cx="368" cy="132" r="3.5" fill="#ffffff" opacity="0.9" />
+    <circle cx="368" cy="132" r="9" fill="#fef08a" opacity="0.4" />
+  </g>
+</svg>
