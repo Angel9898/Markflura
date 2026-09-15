@@ -48,6 +48,7 @@ function founderPhotoUploadPlugin(): Plugin {
 
 export default defineConfig(() => {
   return {
+    base: '/Markflura/',
     plugins: [founderPhotoUploadPlugin(), react(), tailwindcss()],
     resolve: {
       alias: {
