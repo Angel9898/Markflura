@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowUpRight, Menu, X, Sparkles } from 'lucide-react';
 import { MarkfluraLogo } from './MarkfluraLogo';
+import { Menu, X, ArrowUpRight, Mail } from 'lucide-react';
 
 interface NavbarProps {
-  onOpenConsultation: (service?: string) => void;
+  onOpenConsultation?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation }) => {
@@ -14,109 +14,146 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation }) => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navLinks = [
-    { name: 'Services', href: '#services' },
-    { name: 'Philosophy', href: '#philosophy' },
-    { name: 'Process', href: '#process' },
-    { name: 'Selected Work', href: '#work' },
-    { name: 'Who We Work With', href: '#audience' },
-    { name: 'Founder', href: '#founder' },
-    { name: 'FAQs', href: '#faqs' },
-    { name: 'Contact', href: '#contact' },
+    { label: 'About', href: '#about' },
+    { label: 'Services', href: '#services' },
+    { label: 'Platforms', href: '#platforms' },
+    { label: 'Clients', href: '#brands' },
+    { label: 'Process', href: '#process' },
+    { label: 'Why Us', href: '#why' },
+    { label: 'Founder', href: '#founder' },
   ];
+
+  const handleLinkClick = (href: string) => {
+    setMobileMenuOpen(false);
+    const elem = document.querySelector(href);
+    if (elem) {
+      elem.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <header
-      id="main-navigation"
+      id="main-nav"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-[#09090b]/90 backdrop-blur-md border-b border-zinc-800/80 py-3 shadow-2xl'
+          ? 'bg-[#0d0618]/92 backdrop-blur-md border-b border-purple-500/20 py-3 shadow-[0_4px_30px_rgba(168,85,247,0.1)]'
           : 'bg-transparent py-5'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between">
-        {/* Brand Logo with the golden M emblem from uploaded logo */}
-        <a
-          href="#"
-          id="brand-logo-link"
-          className="group flex items-center gap-3 text-left focus:outline-none"
-        >
-          <MarkfluraLogo size={38} showText={true} />
-        </a>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <a
+            href="#hero"
+            onClick={(e) => {
+              e.preventDefault();
+              handleLinkClick('#hero');
+            }}
+            className="group cursor-pointer flex items-center gap-2"
+          >
+            <MarkfluraLogo size={38} showText={true} />
+          </a>
 
-        {/* Desktop Navigation */}
-        <nav id="desktop-nav" className="hidden lg:flex items-center gap-7">
-          {navLinks.slice(0, 7).map((link) => (
+          {/* Desktop Nav Links */}
+          <nav className="hidden lg:flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#160a24]/80 border border-purple-500/15 backdrop-blur-md shadow-inner">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleLinkClick(link.href);
+                }}
+                className="px-3.5 py-1.5 rounded-full text-xs font-semibold text-purple-200/80 hover:text-white hover:bg-purple-500/15 transition-all duration-200 cursor-pointer"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          {/* Action CTAs */}
+          <div className="hidden sm:flex items-center gap-3">
             <a
-              key={link.name}
-              href={link.href}
-              id={`nav-link-${link.name.toLowerCase().replace(/\s+/g, '-')}`}
-              className="text-xs uppercase tracking-wider text-zinc-400 hover:text-white transition-colors duration-200 font-medium relative group"
+              href="mailto:markflura@gmail.com"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-purple-300 hover:text-white bg-purple-950/40 hover:bg-purple-900/60 border border-purple-500/20 transition-all"
             >
-              {link.name}
-              <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-[#d4af37] transition-all duration-200 group-hover:w-full" />
+              <Mail className="w-3.5 h-3.5 text-pink-400" />
+              <span>Email Us</span>
             </a>
-          ))}
-        </nav>
 
-        {/* Right CTA and Mobile Toggle */}
-        <div className="flex items-center gap-4">
-          <button
-            id="nav-growth-journey-btn"
-            onClick={() => onOpenConsultation()}
-            className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#d4af37] to-[#eab308] hover:from-[#eab308] hover:to-[#facc15] text-zinc-950 font-semibold text-xs tracking-wider uppercase transition-all duration-300 shadow-lg shadow-amber-500/10 hover:shadow-amber-500/20 active:scale-95"
-          >
-            <span>Start Growth Journey</span>
-            <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
-          </button>
+            <button
+              onClick={() => {
+                if (onOpenConsultation) {
+                  onOpenConsultation();
+                } else {
+                  handleLinkClick('#contact');
+                }
+              }}
+              className="relative group inline-flex items-center gap-1.5 px-5 py-2 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:to-pink-500 shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:shadow-[0_0_28px_rgba(236,72,153,0.5)] transition-all duration-300 cursor-pointer overflow-hidden active:scale-95"
+            >
+              <span className="relative z-10">Let's Talk</span>
+              <ArrowUpRight className="w-4 h-4 relative z-10 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </button>
+          </div>
 
-          {/* Mobile hamburger */}
+          {/* Mobile Menu Toggle Button */}
           <button
-            id="mobile-menu-toggle-btn"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle Navigation Menu"
-            className="lg:hidden p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-700 transition-colors"
+            className="lg:hidden p-2 rounded-lg bg-purple-950/50 border border-purple-500/30 text-purple-200 hover:text-white transition-colors"
+            aria-label="Toggle menu"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div
-          id="mobile-nav-menu"
-          className="lg:hidden bg-[#0c0c0e]/98 backdrop-blur-xl border-b border-zinc-800 px-6 py-6 transition-all duration-300"
-        >
-          <div className="flex flex-col gap-4">
+        <div className="lg:hidden bg-[#0d0618]/95 backdrop-blur-xl border-b border-purple-500/20 px-6 py-6 space-y-4 animate-in fade-in slide-in-from-top-4 duration-200">
+          <div className="flex flex-col space-y-3">
             {navLinks.map((link) => (
               <a
-                key={link.name}
+                key={link.label}
                 href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-sm uppercase tracking-wider text-zinc-300 hover:text-amber-400 py-2 border-b border-zinc-900/80 transition-colors"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleLinkClick(link.href);
+                }}
+                className="text-base font-medium text-purple-200/90 hover:text-white py-2 border-b border-purple-500/10"
               >
-                {link.name}
+                {link.label}
               </a>
             ))}
-            <div className="pt-2">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
+          </div>
+
+          <div className="pt-2 flex flex-col gap-3">
+            <a
+              href="mailto:markflura@gmail.com"
+              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold text-purple-200 bg-purple-950/40 border border-purple-500/30 hover:text-white"
+            >
+              <Mail className="w-4 h-4 text-pink-400" />
+              <span>Email: markflura@gmail.com</span>
+            </a>
+
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                if (onOpenConsultation) {
                   onOpenConsultation();
-                }}
-                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#eab308] text-zinc-950 font-bold text-xs uppercase tracking-wider shadow-lg"
-              >
-                <span>Start Your Growth Journey →</span>
-              </button>
-            </div>
-            <div className="text-[11px] text-zinc-400 text-center pt-2">
-              Delhi, India · <a href="mailto:a1.infulencercampaign@gmail.com" className="text-zinc-300 underline">a1.infulencercampaign@gmail.com</a>
-            </div>
+                } else {
+                  handleLinkClick('#contact');
+                }
+              }}
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 shadow-lg shadow-purple-900/40"
+            >
+              <span>Let's Talk</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </button>
           </div>
         </div>
       )}

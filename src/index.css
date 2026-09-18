@@ -1,15 +1,61 @@
 @import "tailwindcss";
 
+:root {
+  --black: #0d0618;
+  --white: #f0eaff;
+  --gray: #160a24;
+  --gray2: #1e0f30;
+  --accent: #a855f7;
+  --accent2: #ec4899;
+  --purple-light: #c084fc;
+  --purple-dark: #7c3aed;
+  --border: rgba(168, 85, 247, 0.14);
+  --border2: rgba(168, 85, 247, 0.28);
+}
+
 @layer base {
   body {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #0d0618;
+    color: #f0eaff;
   }
 }
 
 .font-display {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
 }
 
-.font-editorial {
-  font-family: 'Newsreader', serif;
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.animate-marquee-reverse {
+  animation: marquee-reverse 30s linear infinite;
+}
+
+.animate-marquee-reverse:hover {
+  animation-play-state: paused;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 8s ease-in-out infinite;
 }

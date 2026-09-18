@@ -1,131 +1,127 @@
-import React, { useState } from 'react';
-import { SERVICES_DATA } from '../data/agencyData';
-import { ServiceItem } from '../types';
-import { ArrowRight, CheckCircle2, ChevronDown, ChevronUp, Layers, Sparkles } from 'lucide-react';
+import React from 'react';
+import { Users, Flame, UserCheck, TrendingUp, Calendar, ArrowUpRight } from 'lucide-react';
 
 interface ServicesSectionProps {
-  onSelectService: (serviceTitle: string) => void;
+  onSelectService?: (serviceTitle: string) => void;
 }
 
 export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectService }) => {
-  const [expandedId, setExpandedId] = useState<string | null>('personal-branding');
-
-  const toggleExpand = (id: string) => {
-    setExpandedId(expandedId === id ? null : id);
-  };
+  const services = [
+    {
+      id: 'influencer-marketing',
+      title: 'Influencer Marketing',
+      description:
+        'We connect your brand with the right voices. From nano to celebrity creators across LinkedIn, X and Instagram, we manage end-to-end campaigns that drive genuine trust and measurable business impact.',
+      tags: ['Nano', 'Micro', 'Macro', 'Celebrity Roster'],
+      icon: Users,
+      gradient: 'from-purple-500 to-pink-500'
+    },
+    {
+      id: 'meme-marketing',
+      title: 'Meme Marketing',
+      description:
+        'Culture moves fast. We move faster. Our meme marketing turns your brand into part of the cultural zeitgeist, capturing viral organic attention across India’s biggest meme communities.',
+      tags: ['Trending', 'Organic Virality', '1000+ Pages'],
+      icon: Flame,
+      gradient: 'from-pink-500 to-amber-400'
+    },
+    {
+      id: 'personal-branding',
+      title: 'Personal Branding',
+      description:
+        'We turn founders, CEOs, and industry leaders into recognized category authorities. From narrative architecture to ghostwritten thought leadership on LinkedIn and X, we build executive presence that opens doors.',
+      tags: ['Founders & CXOs', 'LinkedIn Authority', 'Thought Leadership'],
+      icon: UserCheck,
+      gradient: 'from-amber-400 to-pink-500'
+    },
+    {
+      id: 'lead-generation',
+      title: 'Lead Generation',
+      description:
+        'Attention is only valuable when it creates business pipeline. We design organic and targeted lead-generation funnels that turn social momentum into high-intent inbound conversations and qualified meetings.',
+      tags: ['B2B Pipeline', 'Qualified Inbound', 'Funnel Conversion'],
+      icon: TrendingUp,
+      gradient: 'from-emerald-400 to-teal-500'
+    },
+    {
+      id: 'content-strategy',
+      title: 'Content Strategy',
+      description:
+        'We build full content calendars, ideate high-retention campaigns, and produce platform-native content that your target audience actually stops to consume, bookmark, and share.',
+      tags: ['Viral Reels', 'Carousels', 'High-Retention'],
+      icon: Calendar,
+      gradient: 'from-violet-500 to-purple-400'
+    }
+  ];
 
   return (
-    <section id="services" className="py-24 bg-[#09090b] relative">
-      <div className="max-w-7xl mx-auto px-5 sm:px-8">
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div>
-            <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#d4af37] font-semibold mb-3">
-              <Layers className="w-3.5 h-3.5 text-amber-400" />
-              <span>Core Capabilities</span>
-            </div>
-            <h2 className="font-display font-black text-3xl sm:text-5xl text-white tracking-tight leading-tight">
-              WHAT WE DO
-            </h2>
+    <section id="services" className="relative py-24 bg-[#160a24]/50 border-t border-purple-500/15 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Header */}
+        <div className="text-left mb-16 max-w-3xl">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="w-6 h-[1.5px] bg-purple-500" />
+            <span className="text-xs font-bold uppercase tracking-widest text-purple-400">
+              What We Do
+            </span>
           </div>
-          <p className="text-sm sm:text-base text-zinc-400 max-w-md">
-            Four specialized practices engineered to elevate your reputation, amplify your reach, and convert influence into commercial velocity.
+
+          <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
+            Every Service Your Brand Needs to Win Online
+          </h2>
+          <p className="text-lg sm:text-xl text-purple-200/80">
+            From scroll-stopping creator content to high-intent lead generation, we scale your presence and revenue.
           </p>
         </div>
 
-        {/* Services Grid / Stack */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {SERVICES_DATA.map((service: ServiceItem) => {
-            const isExpanded = expandedId === service.id;
-
+        {/* 6 Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {services.map((svc) => {
+            const Icon = svc.icon;
             return (
               <div
-                key={service.id}
-                id={`service-card-${service.id}`}
-                className={`rounded-3xl border transition-all duration-300 flex flex-col justify-between ${
-                  isExpanded
-                    ? 'bg-zinc-900/90 border-amber-500/40 shadow-xl shadow-amber-950/20 ring-1 ring-amber-500/20'
-                    : 'bg-zinc-900/40 border-zinc-800/80 hover:border-zinc-700'
-                }`}
+                key={svc.id}
+                className="group relative p-8 rounded-3xl bg-[#1e0f30]/80 hover:bg-[#25133d] border border-purple-500/20 hover:border-purple-400/50 backdrop-blur-xl shadow-xl hover:shadow-[0_15px_35px_rgba(168,85,247,0.15)] transition-all duration-300 flex flex-col justify-between"
               >
-                <div className="p-7 sm:p-9">
-                  {/* Top identifier */}
-                  <div className="flex items-center justify-between mb-5">
-                    <span className="font-mono text-xs sm:text-sm font-bold tracking-widest text-amber-400/90 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
-                      {service.number}
-                    </span>
-                    <span className="text-xs text-zinc-400 uppercase tracking-widest font-semibold">
-                      Full Scope Practice
-                    </span>
+                <div>
+                  {/* Glowing Icon */}
+                  <div
+                    className={`w-14 h-14 rounded-2xl bg-gradient-to-tr ${svc.gradient} p-[1px] mb-6 shadow-md`}
+                  >
+                    <div className="w-full h-full rounded-2xl bg-[#0d0618]/90 flex items-center justify-center text-white group-hover:bg-transparent transition-colors">
+                      <Icon className="w-6 h-6 text-purple-300 group-hover:text-white" />
+                    </div>
                   </div>
 
-                  {/* Title & Tagline */}
-                  <h3 className="font-display font-black text-2xl sm:text-3xl text-white mb-2 tracking-tight">
-                    {service.title}
+                  <h3 className="font-display text-2xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors">
+                    {svc.title}
                   </h3>
-                  <h4 className="font-editorial italic text-lg sm:text-xl text-amber-200/90 mb-5">
-                    {service.tagline}
-                  </h4>
 
-                  {/* Description */}
-                  <p className="text-sm text-zinc-300 leading-relaxed mb-6">
-                    {service.description}
+                  <p className="text-sm text-purple-200/75 leading-relaxed mb-6">
+                    {svc.description}
                   </p>
+                </div>
 
-                  {/* Bullets Pill Tags */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {service.bullets.map((bullet) => (
+                <div>
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 pt-4 border-t border-purple-500/15">
+                    {svc.tags.map((tag, tIdx) => (
                       <span
-                        key={bullet}
-                        className="text-xs font-semibold px-3 py-1 rounded-lg bg-zinc-950/80 border border-zinc-800 text-zinc-300"
+                        key={tIdx}
+                        className="px-3 py-1 rounded-full text-xs font-medium text-purple-200 bg-purple-950/60 border border-purple-500/25"
                       >
-                        {bullet}
+                        {tag}
                       </span>
                     ))}
                   </div>
 
-                  {/* Expandable Deliverables Details */}
-                  {isExpanded && (
-                    <div className="mt-6 pt-6 border-t border-zinc-800/80 animate-fade-in">
-                      <div className="mb-4">
-                        <span className="text-[11px] uppercase tracking-wider font-bold text-zinc-400 block mb-2">
-                          Key Deliverables & Framework:
-                        </span>
-                        <ul className="space-y-2.5">
-                          {service.deliverables.map((item, dIdx) => (
-                            <li key={dIdx} className="flex items-start gap-2.5 text-xs text-zinc-300">
-                              <CheckCircle2 className="w-4 h-4 text-[#d4af37] shrink-0 mt-0.5" />
-                              <span>{item}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <div className="p-3.5 rounded-xl bg-zinc-950/90 border border-zinc-800/80 text-xs text-zinc-400 mb-4">
-                        <span className="text-zinc-200 font-semibold block mb-1">Tailored For:</span>
-                        {service.idealFor}
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Footer Bar / Interactive Buttons */}
-                <div className="px-7 sm:px-9 py-4 bg-zinc-950/60 border-t border-zinc-800/60 rounded-b-3xl flex items-center justify-between gap-4">
+                  {/* Quick Inquiry action */}
                   <button
-                    onClick={() => toggleExpand(service.id)}
-                    className="text-xs text-zinc-400 hover:text-zinc-200 font-medium flex items-center gap-1.5 transition-colors"
+                    onClick={() => onSelectService?.(svc.title)}
+                    className="mt-6 w-full flex items-center justify-between text-xs font-semibold text-purple-300/80 hover:text-white py-1.5 transition-colors cursor-pointer group-hover:underline"
                   >
-                    <span>{isExpanded ? 'Collapse Scope' : 'View Deliverables'}</span>
-                    {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-                  </button>
-
-                  <button
-                    id={`inquire-btn-${service.id}`}
-                    onClick={() => onSelectService(service.title)}
-                    className="text-xs font-bold uppercase tracking-wider text-amber-300 hover:text-amber-200 flex items-center gap-1.5 transition-colors"
-                  >
-                    <span>Inquire for {service.title}</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <span>Request Campaign Proposal</span>
+                    <ArrowUpRight className="w-4 h-4 text-purple-400" />
                   </button>
                 </div>
               </div>

@@ -1,102 +1,99 @@
 import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { PhilosophySection } from './components/PhilosophySection';
-import { ServicesSection } from './components/ServicesSection';
-import { WhyMarkflura } from './components/WhyMarkflura';
-import { ProcessSection } from './components/ProcessSection';
-import { SelectedWorkSection } from './components/SelectedWorkSection';
-import { ApproachPipeline } from './components/ApproachPipeline';
-import { AudienceSection } from './components/AudienceSection';
+import { MarqueeTicker } from './components/MarqueeTicker';
 import { AboutSection } from './components/AboutSection';
+import { ServicesSection } from './components/ServicesSection';
+import { PlatformsSection } from './components/PlatformsSection';
+import { BrandsSection } from './components/BrandsSection';
+import { ProcessSection } from './components/ProcessSection';
+import { WhyAshencySection } from './components/WhyAshencySection';
+import { NumbersSection } from './components/NumbersSection';
 import { FounderSection } from './components/FounderSection';
-import { FaqSection } from './components/FaqSection';
+import { CtaBanner } from './components/CtaBanner';
 import { ContactSection } from './components/ContactSection';
-import { FinalCtaAndFooter } from './components/FinalCtaAndFooter';
-import { CaseStudyModal } from './components/CaseStudyModal';
+import { Footer } from './components/Footer';
+import { CreatorNetworkModal } from './components/CreatorNetworkModal';
 import { GrowthConsultationModal } from './components/GrowthConsultationModal';
-import { CaseStudy } from './types';
 
 export default function App() {
-  const [activeCaseStudy, setActiveCaseStudy] = useState<CaseStudy | null>(null);
+  const [networkModalOpen, setNetworkModalOpen] = useState(false);
+  const [selectedPlatform, setSelectedPlatform] = useState<'linkedin' | 'x' | 'instagram'>('linkedin');
+
   const [consultationOpen, setConsultationOpen] = useState(false);
-  const [selectedServiceForConsultation, setSelectedServiceForConsultation] = useState<string>('Personal Branding');
+  const [consultationService, setConsultationService] = useState<string>('Influencer Marketing');
+
+  const handleOpenNetworkModal = (platform: 'linkedin' | 'x' | 'instagram') => {
+    setSelectedPlatform(platform);
+    setNetworkModalOpen(true);
+  };
 
   const handleOpenConsultation = (serviceName?: string) => {
     if (serviceName) {
-      setSelectedServiceForConsultation(serviceName);
+      setConsultationService(serviceName);
     }
     setConsultationOpen(true);
   };
 
-  const handleScrollToContact = (serviceName?: string) => {
-    const contactElem = document.getElementById('contact');
-    if (contactElem) {
-      contactElem.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-[#09090b] text-[#f4f4f5] selection:bg-[#d4af37]/20 selection:text-[#fef08a] overflow-x-hidden font-sans">
+    <div className="min-h-screen bg-[#0d0618] text-[#f0eaff] selection:bg-[#a855f7]/30 selection:text-white overflow-x-hidden font-sans">
       {/* Sticky Header Navigation */}
-      <Navbar onOpenConsultation={handleOpenConsultation} />
+      <Navbar onOpenConsultation={() => handleOpenConsultation()} />
 
       {/* Main Content Flow */}
       <main id="main-content">
-        {/* Hero Section */}
-        <Hero onOpenConsultation={handleOpenConsultation} />
+        {/* Hero Section: "We Make Brands Go Viral" */}
+        <Hero onOpenConsultation={() => handleOpenConsultation()} />
 
-        {/* Philosophy & Brand Manifesto */}
-        <PhilosophySection />
+        {/* Dynamic Running Services Marquee Ticker */}
+        <MarqueeTicker />
 
-        {/* What We Do (4 Core Practices) */}
-        <ServicesSection onSelectService={handleOpenConsultation} />
-
-        {/* Why Markflura (Pillars & Multiplication of Attention) */}
-        <WhyMarkflura />
-
-        {/* 6-Step Growth Process */}
-        <ProcessSection />
-
-        {/* Selected Work & Detailed Case Studies */}
-        <SelectedWorkSection onOpenCaseStudy={(study) => setActiveCaseStudy(study)} />
-
-        {/* The Markflura Strategic Approach Pipeline */}
-        <ApproachPipeline />
-
-        {/* Who We Work With (Founders, Creators, Brands, etc.) */}
-        <AudienceSection onSelectCategory={handleOpenConsultation} />
-
-        {/* About Markflura (Vision & Mission) */}
+        {/* Who We Are: An Agency Built for the Internet Age */}
         <AboutSection />
 
-        {/* Meet The Founder: Angel Thakral */}
-        <FounderSection onOpenConsultation={handleOpenConsultation} />
+        {/* What We Do: 6 Core Services */}
+        <ServicesSection onSelectService={(serviceTitle) => handleOpenConsultation(serviceTitle)} />
 
-        {/* FAQs (All 12 Questions Answered) */}
-        <FaqSection />
+        {/* Cross Platform: LinkedIn, X (Twitter), Instagram */}
+        <PlatformsSection onOpenNetworkModal={handleOpenNetworkModal} />
 
-        {/* Contact Form & Direct Headquarters Contact */}
-        <ContactSection preselectedService={selectedServiceForConsultation} />
+        {/* Trusted By: Dual Infinite Brand Logo Marquee */}
+        <BrandsSection />
 
-        {/* Final CTA & Comprehensive Footer */}
-        <FinalCtaAndFooter onOpenConsultation={handleOpenConsultation} />
+        {/* How We Work: Our 4-Step Growth Process */}
+        <ProcessSection />
+
+        {/* Why Ashency: Built Different. Results Proven. */}
+        <WhyAshencySection />
+
+        {/* By the Numbers: Metrics That Speak Louder */}
+        <NumbersSection />
+
+        {/* Founder & Leadership: Angel Thakral */}
+        <FounderSection onOpenConsultation={() => handleOpenConsultation()} />
+
+        {/* Call To Action Banner: Ready to Make Your Brand Go Viral? */}
+        <CtaBanner onStartProject={() => handleOpenConsultation()} />
+
+        {/* Contact & Proposal Request Section */}
+        <ContactSection preselectedService={consultationService} />
       </main>
 
-      {/* Interactive Case Study Detail Modal */}
-      <CaseStudyModal
-        caseStudy={activeCaseStudy}
-        onClose={() => setActiveCaseStudy(null)}
-        onInquire={(serviceName) => {
-          handleScrollToContact(serviceName);
-        }}
+      {/* Comprehensive Ashency Footer */}
+      <Footer />
+
+      {/* Interactive Creator Network Roster Modal (LinkedIn, X, Instagram) */}
+      <CreatorNetworkModal
+        initialPlatform={selectedPlatform}
+        isOpen={networkModalOpen}
+        onClose={() => setNetworkModalOpen(false)}
       />
 
-      {/* Fast-Track Growth Journey Modal */}
+      {/* Fast-Track Campaign Brief / Consultation Modal */}
       <GrowthConsultationModal
         isOpen={consultationOpen}
         onClose={() => setConsultationOpen(false)}
-        defaultService={selectedServiceForConsultation}
+        defaultService={consultationService}
       />
     </div>
   );

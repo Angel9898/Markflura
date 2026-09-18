@@ -1,12 +1,41 @@
 export interface ServiceItem {
   id: string;
-  number: string;
   title: string;
+  description: string;
+  tags?: string[];
+  number?: string;
+  tagline?: string;
+  bullets?: string[];
+  deliverables?: string[];
+  idealFor?: string;
+}
+
+export interface CreatorNiche {
+  name: string;
+  creatorCount: string;
+  description?: string;
+  examples?: string[];
+}
+
+export interface PlatformNetwork {
+  id: 'linkedin' | 'x' | 'instagram';
+  name: string;
+  shortName: string;
+  countBadge: string;
   tagline: string;
   description: string;
-  bullets: string[];
-  deliverables: string[];
-  idealFor: string;
+  highlights: string[];
+  niches: string[];
+  featuredPages?: string[];
+  gradient: string;
+}
+
+export interface ProcessStep {
+  step: string;
+  title: string;
+  description: string;
+  tagline?: string;
+  deliverables?: string[];
 }
 
 export interface CaseStudy {
@@ -20,14 +49,6 @@ export interface CaseStudy {
   metrics: { label: string; value: string }[];
   clientType: string;
   timeline: string;
-}
-
-export interface ProcessStep {
-  step: string;
-  title: string;
-  tagline: string;
-  description: string;
-  deliverables: string[];
 }
 
 export interface ClientCategory {
@@ -54,3 +75,5 @@ export interface ContactFormData {
   services: string[];
   requirement: string;
 }
+
+

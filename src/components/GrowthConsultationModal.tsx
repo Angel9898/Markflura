@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, ArrowRight, Check, Send, Sparkles, Mail } from 'lucide-react';
+import { X, Send, Sparkles, Mail, CheckCircle2, ArrowUpRight } from 'lucide-react';
 
 interface GrowthConsultationModalProps {
   isOpen: boolean;
@@ -10,24 +10,24 @@ interface GrowthConsultationModalProps {
 export const GrowthConsultationModal: React.FC<GrowthConsultationModalProps> = ({
   isOpen,
   onClose,
-  defaultService = 'Personal Branding'
+  defaultService = 'Influencer Marketing'
 }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [company, setCompany] = useState('');
-  const [role, setRole] = useState('Founder');
   const [service, setService] = useState(defaultService);
+  const [goal, setGoal] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
   if (!isOpen) return null;
 
-  const roles = ['Founder', 'Entrepreneur', 'Professional', 'Creator', 'Brand / Business'];
   const services = [
-    'Personal Branding',
-    'LinkedIn Growth',
     'Influencer Marketing',
-    'Lead Generation'
+    'Meme Marketing',
+    'Personal Branding',
+    'Lead Generation',
+    'Content Strategy'
   ];
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -36,177 +36,164 @@ export const GrowthConsultationModal: React.FC<GrowthConsultationModalProps> = (
     setSubmitted(true);
   };
 
-  const mailtoLink = `mailto:a1.infulencercampaign@gmail.com?subject=${encodeURIComponent(
-    `Growth Consultation: ${name} (${role} - ${service})`
-  )}&body=${encodeURIComponent(
-    `Hello Angel & Markflura Team,\n\nI would like to start my growth journey with Markflura.\n\nName: ${name}\nRole: ${role}\nCompany: ${company}\nEmail: ${email}\nPhone: ${phone}\nPrimary Focus: ${service}\n\nLooking forward to hearing from you!`
-  )}`;
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/80 backdrop-blur-md animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
       <div
-        className="relative w-full max-w-2xl rounded-3xl bg-[#0e0e12] border border-zinc-800 shadow-2xl p-6 sm:p-10 my-8 max-h-[90vh] overflow-y-auto"
+        className="relative w-full max-w-2xl rounded-3xl bg-[#160a24] border border-purple-500/30 shadow-2xl p-6 sm:p-10 my-8 max-h-[90vh] overflow-y-auto text-purple-100"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
+          className="absolute top-6 right-6 p-2 rounded-xl bg-purple-950/60 hover:bg-purple-900 text-purple-300 hover:text-white transition-colors cursor-pointer"
           aria-label="Close modal"
-          className="absolute top-6 right-6 p-2 rounded-full bg-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-700 transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
 
         {submitted ? (
-          <div className="text-center py-10 animate-fade-in">
-            <div className="w-16 h-16 rounded-full bg-amber-500/20 text-amber-300 flex items-center justify-center mx-auto mb-5 border border-amber-500/30">
-              <Sparkles className="w-8 h-8" />
+          <div className="py-10 text-center space-y-4">
+            <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-4 border border-emerald-500/30">
+              <CheckCircle2 className="w-8 h-8" />
             </div>
-            <h3 className="font-display font-black text-2xl sm:text-3xl text-white mb-2">
-              Growth Journey Initiated
+            <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-white">
+              Consultation Scheduled!
             </h3>
-            <p className="text-sm text-zinc-300 max-w-md mx-auto mb-6 leading-relaxed">
-              Thank you, {name}. Your inquiry for <span className="text-amber-300 font-semibold">{service}</span> has been queued for review by Angel Thakral.
+            <p className="text-purple-200/80 text-sm max-w-md mx-auto leading-relaxed">
+              Thanks <span className="text-white font-semibold">{name}</span>! Our lead strategist will review your brand goals for <span className="text-purple-300 font-semibold">{company || 'your business'}</span> and connect with you shortly.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <div className="pt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
               <a
-                href={mailtoLink}
-                className="px-6 py-3 rounded-full bg-gradient-to-r from-[#d4af37] to-[#eab308] text-zinc-950 font-bold text-xs uppercase tracking-wider flex items-center gap-2"
+                href="mailto:markflura@gmail.com"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold text-white bg-purple-700 hover:bg-purple-600 transition-colors shadow-lg"
               >
-                <Send className="w-3.5 h-3.5" />
-                <span>Open Mail Client</span>
+                <Mail className="w-4 h-4" />
+                <span>Email Directly: markflura@gmail.com</span>
               </a>
               <button
                 onClick={onClose}
-                className="px-6 py-3 rounded-full bg-zinc-800 text-zinc-300 hover:text-white text-xs font-semibold"
+                className="px-6 py-3 rounded-xl text-xs font-semibold text-purple-300 hover:text-white bg-purple-950/60 border border-purple-500/20"
               >
-                Close Window
+                Done
               </button>
             </div>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <span className="text-xs font-mono font-bold tracking-widest uppercase text-amber-400 block mb-1">
-                START YOUR JOURNEY
-              </span>
-              <h2 className="font-display font-black text-2xl sm:text-3xl text-white">
-                Influence Strategy Consultation
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-400/30 text-[11px] font-bold uppercase tracking-wider text-purple-300 mb-2">
+                <Sparkles className="w-3.5 h-3.5 text-pink-400" />
+                <span>Markflura Growth Brief</span>
+              </div>
+              <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                Let's Make Your Brand Go Viral
               </h2>
-              <p className="text-xs text-zinc-400 mt-1">
-                Evaluate your positioning, discover your untapped authority, and map your growth roadmap.
+              <p className="text-xs text-purple-200/70 mt-1">
+                Tell us about your brand and what you want to achieve. We'll outline the exact creator & ads strategy.
               </p>
             </div>
 
-            {/* Role Selection */}
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-300 mb-2">
-                I am a:
-              </label>
-              <div className="flex flex-wrap gap-2">
-                {roles.map((r) => (
-                  <button
-                    type="button"
-                    key={r}
-                    onClick={() => setRole(r)}
-                    className={`text-xs px-3.5 py-1.5 rounded-xl border transition-all ${
-                      role === r
-                        ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 font-semibold'
-                        : 'bg-zinc-900 text-zinc-400 border-zinc-800 hover:text-zinc-200'
-                    }`}
-                  >
-                    {r}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Primary Discipline Needed */}
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-300 mb-2">
-                Primary Goal:
-              </label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {services.map((s) => (
-                  <button
-                    type="button"
-                    key={s}
-                    onClick={() => setService(s)}
-                    className={`text-xs p-3 rounded-xl border text-left flex items-center justify-between transition-all ${
-                      service === s
-                        ? 'bg-amber-500/15 text-amber-200 border-amber-500/40 font-semibold'
-                        : 'bg-zinc-950/80 text-zinc-400 border-zinc-800 hover:border-zinc-700'
-                    }`}
-                  >
-                    <span>{s}</span>
-                    {service === s && <Check className="w-3.5 h-3.5 text-amber-400" />}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Input fields */}
+            {/* Form Fields */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
-                  Your Full Name *
+                <label className="block text-xs font-semibold uppercase tracking-wider text-purple-300 mb-1.5">
+                  Your Name *
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="Angel or Jane Doe"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-xs focus:outline-none focus:border-amber-500/60"
+                  placeholder="Rahul Sharma"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#0d0618] border border-purple-500/30 text-white placeholder-purple-300/40 text-sm focus:outline-none focus:border-purple-400"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
-                  Email Address *
+                <label className="block text-xs font-semibold uppercase tracking-wider text-purple-300 mb-1.5">
+                  Brand / Company Name
+                </label>
+                <input
+                  type="text"
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
+                  placeholder="Acme Lifestyle"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#0d0618] border border-purple-500/30 text-white placeholder-purple-300/40 text-sm focus:outline-none focus:border-purple-400"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-purple-300 mb-1.5">
+                  Work Email *
                 </label>
                 <input
                   type="email"
                   required
-                  placeholder="name@company.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-xs focus:outline-none focus:border-amber-500/60"
+                  placeholder="rahul@acme.com"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#0d0618] border border-purple-500/30 text-white placeholder-purple-300/40 text-sm focus:outline-none focus:border-purple-400"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
-                  Company / Organization
+                <label className="block text-xs font-semibold uppercase tracking-wider text-purple-300 mb-1.5">
+                  Phone Number
                 </label>
                 <input
-                  type="text"
-                  placeholder="Company name"
-                  value={company}
-                  onChange={(e) => setCompany(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-xs focus:outline-none focus:border-amber-500/60"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
-                  Phone / WhatsApp
-                </label>
-                <input
-                  type="text"
-                  placeholder="+91 / International"
+                  type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-xs focus:outline-none focus:border-amber-500/60"
+                  placeholder="+91 98765 43210"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#0d0618] border border-purple-500/30 text-white placeholder-purple-300/40 text-sm focus:outline-none focus:border-purple-400"
                 />
               </div>
             </div>
 
+            {/* Service Selection */}
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-purple-300 mb-2">
+                Select Primary Focus
+              </label>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {services.map((svc) => (
+                  <button
+                    type="button"
+                    key={svc}
+                    onClick={() => setService(svc)}
+                    className={`px-3 py-2 rounded-xl text-xs font-semibold border text-center transition-all cursor-pointer ${
+                      service === svc
+                        ? 'bg-gradient-to-r from-purple-600 to-pink-600 border-purple-400 text-white shadow-md'
+                        : 'bg-[#0d0618] border-purple-500/20 text-purple-200/70 hover:text-white hover:border-purple-400/40'
+                    }`}
+                  >
+                    {svc}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Campaign Goals */}
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-purple-300 mb-1.5">
+                Brief / Campaign Goal
+              </label>
+              <textarea
+                rows={3}
+                value={goal}
+                onChange={(e) => setGoal(e.target.value)}
+                placeholder="Target platforms, campaign launch dates, or key performance deliverables..."
+                className="w-full px-4 py-2.5 rounded-xl bg-[#0d0618] border border-purple-500/30 text-white placeholder-purple-300/40 text-sm focus:outline-none focus:border-purple-400"
+              />
+            </div>
+
             <button
               type="submit"
-              className="w-full py-3.5 rounded-full bg-gradient-to-r from-[#d4af37] via-[#eab308] to-[#ca8a04] text-zinc-950 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl hover:brightness-110 active:scale-[0.99] transition-all"
+              className="w-full group inline-flex items-center justify-center gap-2 py-3.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 shadow-lg shadow-purple-900/40 transition-all cursor-pointer"
             >
-              <span>Submit & Request Callback</span>
-              <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+              <span>Submit & Start Conversation</span>
+              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </button>
           </form>
         )}

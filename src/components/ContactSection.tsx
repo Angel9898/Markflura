@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, MapPin, CheckCircle2, ArrowRight, Sparkles, Send, Copy, Check } from 'lucide-react';
+import { Mail, Send, CheckCircle2, ArrowUpRight, Clock, Sparkles, ShieldCheck } from 'lucide-react';
 import { ContactFormData } from '../types';
 
 interface ContactSectionProps {
@@ -12,267 +12,247 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
     company: '',
     email: '',
     phone: '',
-    services: preselectedService ? [preselectedService] : ['Personal Branding'],
+    services: preselectedService ? [preselectedService] : ['Influencer Marketing'],
     requirement: ''
   });
 
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const availableServices = [
-    'Personal Branding',
-    'LinkedIn Growth',
     'Influencer Marketing',
-    'Lead Generation'
+    'Meme Marketing',
+    'Personal Branding',
+    'Lead Generation',
+    'Content Strategy'
   ];
 
-  const handleServiceToggle = (service: string) => {
+  const toggleService = (svc: string) => {
     setFormData((prev) => {
-      const exists = prev.services.includes(service);
-      return {
-        ...prev,
-        services: exists
-          ? prev.services.filter((s) => s !== service)
-          : [...prev.services, service]
-      };
+      const exists = prev.services.includes(svc);
+      if (exists) {
+        return { ...prev, services: prev.services.filter((s) => s !== svc) };
+      } else {
+        return { ...prev, services: [...prev.services, svc] };
+      }
     });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.fullName || !formData.email) return;
-
-    // Trigger submission state
-    setIsSubmitted(true);
+    setSubmitted(true);
   };
-
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText('a1.infulencercampaign@gmail.com');
-    setCopiedEmail(true);
-    setTimeout(() => setCopiedEmail(false), 2500);
-  };
-
-  const mailtoUrl = `mailto:a1.infulencercampaign@gmail.com?subject=${encodeURIComponent(
-    `Growth Inquiry: ${formData.company || formData.fullName} (${formData.services.join(', ')})`
-  )}&body=${encodeURIComponent(
-    `Hello Markflura Team,\n\nName: ${formData.fullName}\nCompany: ${formData.company}\nPhone/WhatsApp: ${formData.phone}\nEmail: ${formData.email}\nServices Needed: ${formData.services.join(', ')}\n\nRequirement Details:\n${formData.requirement}\n\nLooking forward to speaking.`
-  )}`;
 
   return (
-    <section id="contact" className="py-24 bg-[#0d0d11] border-t border-zinc-800/60 relative">
-      <div className="max-w-7xl mx-auto px-5 sm:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Left: Section Header & Contact Details */}
-          <div className="lg:col-span-5">
-            <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#d4af37] font-semibold mb-3">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>Initiate Engagement</span>
-            </div>
-            <h2 className="font-display font-black text-3xl sm:text-5xl text-white tracking-tight leading-tight mb-6">
-              Let&apos;s Build Your Influence.
-            </h2>
+    <section id="contact" className="relative py-24 bg-[#0d0618] border-t border-purple-500/15 overflow-hidden">
+      {/* Background ambient light */}
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[140px] pointer-events-none" />
 
-            <div className="space-y-2 text-base sm:text-lg text-zinc-300 font-medium mb-6">
-              <p>Your expertise deserves attention.</p>
-              <p>Your story deserves to be heard.</p>
-              <p>Your business deserves opportunities.</p>
-            </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Section Header */}
+        <div className="text-left mb-16 max-w-3xl">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="w-6 h-[1.5px] bg-purple-500" />
+            <span className="text-xs font-bold uppercase tracking-widest text-purple-400">
+              Get In Touch
+            </span>
+          </div>
 
-            <p className="text-sm text-zinc-400 leading-relaxed mb-8">
-              Let&apos;s build a digital presence that makes people <strong className="text-white">notice you, remember you and trust you.</strong>
-            </p>
+          <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
+            Let's Build Your Brand Together
+          </h2>
+          <p className="text-lg sm:text-xl text-purple-200/80 leading-relaxed">
+            We'd love to hear from you. Whether you have a specific campaign brief in mind or want an end-to-end creator and growth strategy, reach out and we will get back to you quickly.
+          </p>
+        </div>
 
-            {/* Direct Contact Card */}
-            <div className="p-7 rounded-3xl bg-zinc-900/80 border border-zinc-800 space-y-6">
-              <div>
-                <span className="text-[10px] font-mono uppercase font-bold tracking-widest text-amber-400 block mb-1">
-                  GET IN TOUCH
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+          {/* Left Column: Direct Agency Channels */}
+          <div className="lg:col-span-5 space-y-6">
+            {/* Email Proposal Card (Primary) */}
+            <a
+              href="mailto:markflura@gmail.com"
+              className="group block p-6 sm:p-7 rounded-3xl bg-[#160a24]/90 border border-purple-500/30 hover:border-pink-500/50 backdrop-blur-xl shadow-lg transition-all duration-300"
+            >
+              <div className="flex items-start justify-between mb-4">
+                <div className="w-12 h-12 rounded-2xl bg-purple-500/20 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
+                  <Mail className="w-6 h-6" />
+                </div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-pink-400 bg-pink-950/80 px-3 py-1 rounded-full border border-pink-500/30">
+                  Direct Inquiries
                 </span>
-                <h3 className="font-display font-bold text-xl text-white">
-                  MARKFLURA
-                </h3>
               </div>
+              <div className="text-xs font-bold uppercase tracking-wider text-purple-300 mb-1">
+                Email Proposals & RFPs
+              </div>
+              <div className="font-display text-xl sm:text-2xl font-bold text-white mb-2 group-hover:text-pink-300 transition-colors">
+                markflura@gmail.com
+              </div>
+              <p className="text-xs text-purple-200/70 leading-relaxed">
+                Send campaign briefs, creator roster requests, and partnership proposals directly to our leadership team.
+              </p>
+            </a>
 
-              <div className="space-y-4 text-xs sm:text-sm">
-                <div className="flex items-center gap-3 text-zinc-300">
-                  <div className="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center text-amber-400">
-                    <MapPin className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-[11px] text-zinc-400 block">Headquarters</span>
-                    <span className="font-semibold text-white">Delhi, India</span>
-                  </div>
+            {/* Response Time & Turnaround Card */}
+            <div className="p-6 sm:p-7 rounded-3xl bg-[#160a24]/90 border border-purple-500/20 backdrop-blur-xl shadow-lg">
+              <div className="flex items-start justify-between mb-4">
+                <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 flex items-center justify-center text-emerald-400">
+                  <Clock className="w-6 h-6" />
                 </div>
-
-                <div className="flex items-center justify-between gap-3 text-zinc-300">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center text-amber-400">
-                      <Mail className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <span className="text-[11px] text-zinc-400 block">Direct Email</span>
-                      <a
-                        href="mailto:a1.infulencercampaign@gmail.com"
-                        className="font-semibold text-white hover:text-amber-300 transition-colors"
-                      >
-                        a1.infulencercampaign@gmail.com
-                      </a>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={handleCopyEmail}
-                    className="p-2 rounded-lg bg-zinc-800 text-zinc-400 hover:text-white transition-colors"
-                    title="Copy email address"
-                  >
-                    {copiedEmail ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-                  </button>
-                </div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-950/80 px-3 py-1 rounded-full border border-emerald-500/30">
+                  Fast Turnaround
+                </span>
               </div>
-
-              <div className="pt-4 border-t border-zinc-800 flex items-center justify-between">
-                <a
-                  href="mailto:a1.infulencercampaign@gmail.com"
-                  className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-300 hover:text-amber-200"
-                >
-                  <span>Let&apos;s Talk</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </a>
-                <span className="text-[11px] text-zinc-400">Usually responds within 24h</span>
+              <div className="text-xs font-bold uppercase tracking-wider text-emerald-300 mb-1">
+                Response Protocol
               </div>
+              <div className="font-display text-lg sm:text-xl font-bold text-white mb-2">
+                Within 2 Business Hours
+              </div>
+              <p className="text-xs text-purple-200/70 leading-relaxed">
+                Our strategy specialists review requirements immediately and return actionable roadmaps and creator pricing proposals without delay.
+              </p>
+            </div>
+
+            {/* Strategic Execution Assurance */}
+            <div className="p-6 sm:p-7 rounded-3xl bg-[#160a24]/90 border border-purple-500/20 backdrop-blur-xl shadow-lg">
+              <div className="w-12 h-12 rounded-2xl bg-purple-500/20 flex items-center justify-center text-purple-400 mb-4">
+                <ShieldCheck className="w-6 h-6" />
+              </div>
+              <div className="text-xs font-bold uppercase tracking-wider text-purple-300 mb-1">
+                Quality & Verification
+              </div>
+              <div className="font-display text-base font-bold text-white mb-1">
+                Verified Creator Rosters
+              </div>
+              <p className="text-xs text-purple-200/70 leading-relaxed">
+                Guaranteed authentic creators across LinkedIn (500+), X (250+), and Instagram (1000+). Real metrics with zero vanity padding.
+              </p>
             </div>
           </div>
 
-          {/* Right: Contact Form */}
+          {/* Right Column: Interactive Proposal Request Form */}
           <div className="lg:col-span-7">
-            <div className="p-8 sm:p-10 rounded-3xl bg-zinc-900/60 border border-zinc-800 backdrop-blur-md relative">
-              {isSubmitted ? (
-                <div className="text-center py-12 animate-fade-in">
-                  <div className="w-16 h-16 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center justify-center mx-auto mb-6">
+            <div className="p-8 sm:p-10 rounded-3xl bg-[#160a24]/95 border border-purple-500/25 backdrop-blur-2xl shadow-2xl">
+              {submitted ? (
+                <div className="py-12 text-center space-y-4 animate-in fade-in zoom-in-95 duration-300">
+                  <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-4 border border-emerald-500/30">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
-                  <h3 className="font-display font-black text-2xl sm:text-3xl text-white mb-3">
-                    Inquiry Received.
+                  <h3 className="font-display text-2xl sm:text-3xl font-bold text-white">
+                    Proposal Request Received!
                   </h3>
-                  <p className="text-zinc-300 text-sm max-w-md mx-auto mb-6 leading-relaxed">
-                    Thank you, {formData.fullName}. Angel Thakral and the Markflura team will review your requirements for{' '}
-                    <strong className="text-amber-300">{formData.services.join(', ')}</strong> and respond directly to {formData.email}.
+                  <p className="text-purple-200/80 max-w-md mx-auto text-sm leading-relaxed">
+                    Thank you, <span className="text-white font-semibold">{formData.fullName}</span>. A Markflura strategist will review your requirements for{' '}
+                    <span className="text-purple-300 font-semibold">{formData.company || 'your brand'}</span> and reply to <span className="text-pink-300 font-semibold">{formData.email}</span> shortly.
                   </p>
-
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                  <div className="pt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
                     <a
-                      href={mailtoUrl}
-                      className="px-6 py-3 rounded-full bg-gradient-to-r from-[#d4af37] to-[#eab308] text-zinc-950 font-bold text-xs uppercase tracking-wider flex items-center gap-2"
+                      href="mailto:markflura@gmail.com"
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold text-white bg-purple-700 hover:bg-purple-600 transition-colors shadow-lg"
                     >
-                      <Send className="w-3.5 h-3.5" />
-                      <span>Send Direct Email Now</span>
+                      <Mail className="w-4 h-4" />
+                      <span>Email Directly: markflura@gmail.com</span>
                     </a>
                     <button
-                      onClick={() => setIsSubmitted(false)}
-                      className="px-6 py-3 rounded-full bg-zinc-800 text-zinc-300 hover:text-white text-xs font-semibold"
+                      onClick={() => setSubmitted(false)}
+                      className="px-6 py-3 rounded-xl text-xs font-semibold text-purple-300 hover:text-white bg-purple-950/60 border border-purple-500/20"
                     >
-                      Submit Another Inquiry
+                      Send Another Request
                     </button>
                   </div>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <h3 className="font-display font-bold text-xl text-white mb-1">
-                      CONTACT FORM
-                    </h3>
-                    <p className="text-xs text-zinc-400">
-                      Share your current position and business goals. All conversations remain strictly confidential.
-                    </p>
-                  </div>
+                  <h3 className="font-display text-2xl font-bold text-white mb-2">
+                    Request a Campaign Proposal
+                  </h3>
+                  <p className="text-xs text-purple-200/70 mb-6">
+                    Tell us about your brand and what goals you want to hit. We will prepare an actionable execution roadmap.
+                  </p>
 
-                  {/* Name & Company */}
+                  {/* Name and Company */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-300 mb-2">
-                        Full Name <span className="text-amber-400">*</span>
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-purple-300 mb-2">
+                        Your Name *
                       </label>
                       <input
                         type="text"
                         required
-                        placeholder="Enter your name"
                         value={formData.fullName}
                         onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-sm focus:outline-none focus:border-amber-500/60"
+                        placeholder="e.g. Rahul Sharma"
+                        className="w-full px-4 py-3 rounded-xl bg-[#0d0618] border border-purple-500/30 text-white placeholder-purple-300/40 text-sm focus:outline-none focus:border-purple-400 transition-colors"
                       />
                     </div>
+
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-300 mb-2">
-                        Company / Brand
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-purple-300 mb-2">
+                        Brand / Company Name *
                       </label>
                       <input
                         type="text"
-                        placeholder="Enter your company"
+                        required
                         value={formData.company}
                         onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-sm focus:outline-none focus:border-amber-500/60"
+                        placeholder="e.g. Acme Health"
+                        className="w-full px-4 py-3 rounded-xl bg-[#0d0618] border border-purple-500/30 text-white placeholder-purple-300/40 text-sm focus:outline-none focus:border-purple-400 transition-colors"
                       />
                     </div>
                   </div>
 
-                  {/* Email & Phone */}
+                  {/* Email and Phone */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-300 mb-2">
-                        Email Address <span className="text-amber-400">*</span>
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-purple-300 mb-2">
+                        Work Email *
                       </label>
                       <input
                         type="email"
                         required
-                        placeholder="Enter your email"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-sm focus:outline-none focus:border-amber-500/60"
+                        placeholder="rahul@acme.com"
+                        className="w-full px-4 py-3 rounded-xl bg-[#0d0618] border border-purple-500/30 text-white placeholder-purple-300/40 text-sm focus:outline-none focus:border-purple-400 transition-colors"
                       />
                     </div>
+
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-300 mb-2">
-                        Phone / WhatsApp
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-purple-300 mb-2">
+                        Phone Number *
                       </label>
                       <input
-                        type="text"
-                        placeholder="Enter your number"
+                        type="tel"
+                        required
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-sm focus:outline-none focus:border-amber-500/60"
+                        placeholder="+91 98765 43210"
+                        className="w-full px-4 py-3 rounded-xl bg-[#0d0618] border border-purple-500/30 text-white placeholder-purple-300/40 text-sm focus:outline-none focus:border-purple-400 transition-colors"
                       />
                     </div>
                   </div>
 
-                  {/* What do you need help with? */}
+                  {/* Select Services Pills */}
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-300 mb-3">
-                      What do you need help with? (Select all that apply)
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-purple-300 mb-2.5">
+                      Services Interested In (Select all that apply)
                     </label>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                      {availableServices.map((service) => {
-                        const checked = formData.services.includes(service);
+                    <div className="flex flex-wrap gap-2">
+                      {availableServices.map((svc) => {
+                        const selected = formData.services.includes(svc);
                         return (
-                          <div
-                            key={service}
-                            onClick={() => handleServiceToggle(service)}
-                            className={`p-3 rounded-xl border flex items-center gap-3 cursor-pointer transition-all ${
-                              checked
-                                ? 'bg-amber-500/10 border-amber-500/40 text-amber-200'
-                                : 'bg-zinc-950/60 border-zinc-800 text-zinc-400 hover:border-zinc-700'
+                          <button
+                            type="button"
+                            key={svc}
+                            onClick={() => toggleService(svc)}
+                            className={`px-3.5 py-1.5 rounded-xl text-xs font-medium border transition-all cursor-pointer ${
+                              selected
+                                ? 'bg-gradient-to-r from-purple-600 to-pink-600 border-purple-400 text-white shadow-md'
+                                : 'bg-[#0d0618] border-purple-500/25 text-purple-200/70 hover:text-white hover:border-purple-400/40'
                             }`}
                           >
-                            <div
-                              className={`w-4 h-4 rounded flex items-center justify-center border transition-colors ${
-                                checked
-                                  ? 'bg-amber-400 border-amber-400 text-zinc-950'
-                                  : 'border-zinc-700 bg-zinc-900'
-                              }`}
-                            >
-                              {checked && <Check className="w-3 h-3 stroke-[3]" />}
-                            </div>
-                            <span className="text-xs font-medium">{service}</span>
-                          </div>
+                            {svc}
+                          </button>
                         );
                       })}
                     </div>
@@ -280,26 +260,25 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
 
                   {/* Requirement Text */}
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-300 mb-2">
-                      Tell us about your requirement
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-purple-300 mb-2">
+                      Campaign Goals & Target Platforms
                     </label>
                     <textarea
-                      rows={4}
-                      placeholder="Write your message... Share your current audience size, industry, or immediate growth milestone."
+                      rows={3}
                       value={formData.requirement}
                       onChange={(e) => setFormData({ ...formData, requirement: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-sm focus:outline-none focus:border-amber-500/60 resize-none"
+                      placeholder="Tell us about your campaign objectives, target audience, preferred platforms (LinkedIn, X, Instagram) or estimated launch timeline..."
+                      className="w-full px-4 py-3 rounded-xl bg-[#0d0618] border border-purple-500/30 text-white placeholder-purple-300/40 text-sm focus:outline-none focus:border-purple-400 transition-colors"
                     />
                   </div>
 
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    id="contact-form-submit-btn"
-                    className="w-full py-4 rounded-full bg-gradient-to-r from-[#d4af37] via-[#eab308] to-[#ca8a04] hover:from-[#eab308] hover:to-[#facc15] text-zinc-950 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-xl shadow-amber-500/20 active:scale-[0.99]"
+                    className="w-full group inline-flex items-center justify-center gap-2 py-4 rounded-xl text-base font-bold text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 shadow-[0_0_25px_rgba(168,85,247,0.4)] hover:shadow-[0_0_35px_rgba(236,72,153,0.6)] transition-all duration-300 cursor-pointer active:scale-98"
                   >
-                    <span>Start the Conversation</span>
-                    <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+                    <span>Send Proposal Request</span>
+                    <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </form>
               )}

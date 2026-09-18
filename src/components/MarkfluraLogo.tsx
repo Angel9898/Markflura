@@ -98,10 +98,10 @@ export const MarkfluraLogo: React.FC<MarkfluraLogoProps> = ({
 
       {showText && (
         <div className="flex flex-col">
-          <span className={`font-display font-black tracking-[0.2em] text-lg sm:text-xl leading-none ${textColor}`}>
+          <span className={`font-display font-black tracking-[0.16em] text-lg sm:text-xl leading-none ${textColor}`}>
             MARKFLURA
           </span>
-          <span className="text-[9px] font-mono font-medium tracking-[0.25em] uppercase text-[#d4af37]/80 mt-1">
+          <span className="text-[9px] font-mono font-medium tracking-[0.22em] uppercase text-[#d4af37]/90 mt-1">
             CREATIVE INFLUENCE
           </span>
         </div>
@@ -109,3 +109,5 @@ export const MarkfluraLogo: React.FC<MarkfluraLogoProps> = ({
     </div>
   );
 };
+
+export const MarkfluenceLogo = MarkfluraLogo;
